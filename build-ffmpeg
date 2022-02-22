@@ -515,6 +515,14 @@ if $NONFREE_AND_GPL; then
     CONFIGURE_OPTIONS+=("--enable-libx264")
 fi
 
+if build "openh264" "2.2.0"; then
+  download "https://github.com/cisco/openh264/archive/v2.2.0.tar.gz" "openh264-2.2.0.tar.gz"
+  execute make -j $MJOBS PREFIX="${WORKSPACE}" 
+  execute make install-static PREFIX="${WORKSPACE}" 
+  build_done "openh264" "2.2.0"
+fi
+CONFIGURE_OPTIONS+=("--enable-libopenh264")
+
 if $NONFREE_AND_GPL; then
     if build "x265" "3.5"; then
         download "https://github.com/videolan/x265/archive/Release_3.5.tar.gz" "x265-3.5.tar.gz" # This is actually 3.4 if looking at x265Version.txt
