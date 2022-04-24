@@ -490,7 +490,7 @@ if $NONFREE_AND_GPL; then
 
     if build "x264" "bfc87b7a"; then
         download "https://code.videolan.org/videolan/x264/-/archive/bfc87b7a330f75f5c9a21e56081e4b20344f139e/x264-bfc87b7a330f75f5c9a21e56081e4b20344f139e.tar.gz" "x264-bfc87b7a.tar.gz"
-        cd "${PACKAGES}"/x264-5db6aa6 || exit
+        cd "${PACKAGES}"/x264-bfc87b7a || exit
 
         if [[ "$OSTYPE" == "linux-gnu" ]]; then
             execute ./configure --prefix="${WORKSPACE}" --enable-static --enable-pic CXXFLAGS="-fPIC ${CXXFLAGS}"
@@ -634,7 +634,7 @@ CONFIGURE_OPTIONS+=("--enable-libaom")
 
 if build "zimg" "3.0.4"; then
     download "https://github.com/sekrit-twc/zimg/archive/refs/tags/release-3.0.4.tar.gz" "zimg-3.0.4.tar.gz" "zimg"
-    cd zimg-release-3.0.3 || exit
+    cd zimg-release-3.0.4 || exit
     execute "${WORKSPACE}/bin/libtoolize" -i -f -q
     execute ./autogen.sh --prefix="${WORKSPACE}"
     execute ./configure --prefix="${WORKSPACE}" --enable-static --disable-shared
