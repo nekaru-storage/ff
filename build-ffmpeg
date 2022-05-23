@@ -670,13 +670,13 @@ if command_exists "python3"; then
         execute python3 ./waf install
         build_done "serd" "0.30.10"
     fi
-    if build "pcre2" "10.39"; then
-        download "https://altushost-swe.dl.sourceforge.net/project/pcre/pcre2/10.39/pcre2-10.39.tar.gz" "pcre2-10.39.tar.gz"
+    if build "pcre2" "10.40"; then
+        download "https://github.com/PCRE2Project/pcre2/releases/download/pcre2-10.40/pcre2-10.40.tar.gz" "pcre2-10.40.tar.gz"
         execute ./configure --prefix="${WORKSPACE}" --disable-shared --enable-static
         execute make -j $MJOBS
         execute make install
 
-        build_done "pcre2" "10.39"
+        build_done "pcre2" "10.40"
     fi
     if build "sord" "0.16.8"; then
         download "https://gitlab.com/drobilla/sord/-/archive/v0.16.8/sord-v0.16.8.tar.gz" "sord-v0.16.8.tar.gz"
