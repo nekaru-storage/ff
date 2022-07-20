@@ -674,7 +674,7 @@ CONFIGURE_OPTIONS+=("--enable-libzimg")
 if command_exists "python3"; then
 
   if build "lv2" "1.18.6"; then
-    download "https://lv2plug.in/spec/lv2-1.18.6.tar.bz2" "lv2-1.18.6.tar.bz2"
+    download "http://lv2plug.in/spec/lv2-1.18.6.tar.xz" "lv2-1.18.6.tar.xz"
     execute python3 ./waf configure --prefix="${WORKSPACE}" --lv2-user
     execute python3 ./waf
     execute python3 ./waf install
