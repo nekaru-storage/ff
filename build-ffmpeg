@@ -427,12 +427,12 @@ else
   CONFIGURE_OPTIONS+=("--enable-gmp" "--enable-gnutls")
 fi
 
-if build "cmake" "3.23.2"; then
-  download "https://github.com/Kitware/CMake/releases/download/v3.23.2/cmake-3.23.2.tar.gz"
+if build "cmake" "3.23.3"; then
+  download "https://github.com/Kitware/CMake/releases/download/v3.23.3/cmake-3.23.3.tar.gz"
   execute ./configure --prefix="${WORKSPACE}" --parallel="${MJOBS}" -- -DCMAKE_USE_OPENSSL=OFF
   execute make -j $MJOBS
   execute make install
-  build_done "cmake" "3.23.2"
+  build_done "cmake" "3.23.3"
 fi
 
 ##
@@ -656,7 +656,7 @@ fi
 CONFIGURE_OPTIONS+=("--enable-libaom")
 
 if build "zimg" "3.0.4"; then
-  download "https://github.com/sekrit-twc/zimg/archive/refs/tags/release-3.0.4.tar.gz" "zimg-3.0._.tar.gz" "zimg"
+  download "https://github.com/sekrit-twc/zimg/archive/refs/tags/release-3.0.4.tar.gz" "zimg-3.0.4.tar.gz" "zimg"
   cd zimg-release-3.0.4 || exit
   execute "${WORKSPACE}/bin/libtoolize" -i -f -q
   execute ./autogen.sh --prefix="${WORKSPACE}"
@@ -672,7 +672,6 @@ CONFIGURE_OPTIONS+=("--enable-libzimg")
 ##
 
 if command_exists "python3"; then
-
   if build "lv2" "1.18.4"; then
     download "http://lv2plug.in/spec/lv2-1.18.4.tar.bz2" "lv2-1.18.4.tar.bz2"
     execute python3 ./waf configure --prefix="${WORKSPACE}" --lv2-user
@@ -685,15 +684,15 @@ if command_exists "python3"; then
     download "https://gitlab.com/drobilla/autowaf/-/archive/aeef9f5fdf416d9b68c61c75de7dae409f1ac6a4/autowaf-aeef9f5fdf416d9b68c61c75de7dae409f1ac6a4.tar.gz" "autowaf.tar.gz"
     build_done "waflib" "aeef9f5f"
   fi
-  if build "serd" "0.30.14"; then
-    download "https://gitlab.com/drobilla/serd/-/archive/v0.30.14/serd-v0.30.14.tar.gz" "serd-v0.30.14.tar.gz"
-    execute cp -r "${PACKAGES}"/autowaf/* "${PACKAGES}/serd-v0.30.10/waflib/"
+  if build "serd" "0.30.12"; then
+    download "https://gitlab.com/drobilla/serd/-/archive/v0.30.12/serd-v0.30.12.tar.gz" "serd-v0.30.12.tar.gz"
+    execute cp -r "${PACKAGES}"/autowaf/* "${PACKAGES}/serd-v0.30.12/waflib/"
     execute python3 ./waf configure --prefix="${WORKSPACE}" --static --no-shared --no-posix
     execute python3 ./waf
     execute python3 ./waf install
-    build_done "serd" "0.30.14"
+    build_done "serd" "0.30.12"
   fi
-  if build "pcre" "10.40"; then
+  if build "pcre2" "10.40"; then
     download "https://github.com/PCRE2Project/pcre2/releases/download/pcre2-10.40/pcre2-10.40.tar.gz" "pcre2-10.40.tar.gz"
     execute ./configure --prefix="${WORKSPACE}" --disable-shared --enable-static
     execute make -j $MJOBS
@@ -701,31 +700,31 @@ if command_exists "python3"; then
 
     build_done "pcre2" "10.40"
   fi
-  if build "sord" "0.16.12"; then
-    download "https://gitlab.com/drobilla/sord/-/archive/v0.16.12/sord-v0.16.12.tar.gz" "sord-v0.16.12.tar.gz"
-    execute cp -r "${PACKAGES}"/autowaf/* "${PACKAGES}/sord-v0.16.12/waflib/"
+  if build "sord" "0.16.10"; then
+    download "https://gitlab.com/drobilla/sord/-/archive/v0.16.10/sord-v0.16.10.tar.gz" "sord-v0.16.10.tar.gz"
+    execute cp -r "${PACKAGES}"/autowaf/* "${PACKAGES}/sord-v0.16.10/waflib/"
     execute python3 ./waf configure --prefix="${WORKSPACE}" CFLAGS="${CFLAGS}" --static --no-shared --no-utils
     execute python3 ./waf CFLAGS="${CFLAGS}"
     execute python3 ./waf install
 
-    build_done "sord" "0.16.12"
+    build_done "sord" "0.16.10"
   fi
-  if build "sratom" "0.6.12"; then
-    download "https://gitlab.com/lv2/sratom/-/archive/v0.6.12/sratom-v0.6.12.tar.gz" "sratom-v0.6.12.tar.gz"
-    execute cp -r "${PACKAGES}"/autowaf/* "${PACKAGES}/sratom-v0.6.12/waflib/"
+  if build "sratom" "0.6.10"; then
+    download "https://gitlab.com/lv2/sratom/-/archive/v0.6.10/sratom-v0.6.10.tar.gz" "sratom-v0.6.10.tar.gz"
+    execute cp -r "${PACKAGES}"/autowaf/* "${PACKAGES}/sratom-v0.6.10/waflib/"
     execute python3 ./waf configure --prefix="${WORKSPACE}" --static --no-shared
     execute python3 ./waf
     execute python3 ./waf install
 
-    build_done "sratom" "0.6.12"
+    build_done "sratom" "0.6.10"
   fi
-  if build "lilv" "0.24.16"; then
-    download "https://gitlab.com/lv2/lilv/-/archive/v0.24.16/lilv-v0.24.16.tar.gz" "lilv-v0.24.12.tar.gz"
-    execute cp -r "${PACKAGES}"/autowaf/* "${PACKAGES}/lilv-v0.24.16/waflib/"
+  if build "lilv" "0.24.14"; then
+    download "https://gitlab.com/lv2/lilv/-/archive/v0.24.14/lilv-v0.24.14.tar.gz" "lilv-v0.24.14.tar.gz"
+    execute cp -r "${PACKAGES}"/autowaf/* "${PACKAGES}/lilv-v0.24.14/waflib/"
     execute python3 ./waf configure --prefix="${WORKSPACE}" --static --no-shared --no-utils
     execute python3 ./waf
     execute python3 ./waf install
-    build_done "lilv" "0.24.16"
+    build_done "lilv" "0.24.14"
   fi
   CFLAGS+=" -I$WORKSPACE/include/lilv-0"
 
@@ -815,12 +814,12 @@ fi
 ## image library
 ##
 
-if build "libtiff" "4.2.0"; then
-  download "https://download.osgeo.org/libtiff/tiff-4.2.0.tar.gz"
+if build "libtiff" "4.4.0"; then
+  download "https://download.osgeo.org/libtiff/tiff-4.4.0.tar.gz"
   execute ./configure --prefix="${WORKSPACE}" --disable-shared --enable-static --disable-dependency-tracking --disable-lzma --disable-webp --disable-zstd --without-x
   execute make -j $MJOBS
   execute make install
-  build_done "libtiff" "4.2.0"
+  build_done "libtiff" "4.4.0"
 fi
 if build "libpng" "1.6.37"; then
   download "https://sourceforge.net/projects/libpng/files/libpng16/1.6.37/libpng-1.6.37.tar.gz/download?use_mirror=gigenet" "libpng-1.6.37.tar.gz"
@@ -834,10 +833,10 @@ fi
 
 ## does not compile on monterey -> _PrintGifError
 if [[ "$OSTYPE" != "darwin"* ]]; then
-  if build "libwebp" "1.2.3"; then
+  if build "libwebp" "1.2.2"; then
     # libwebp can fail to compile on Ubuntu if these flags were left set to CFLAGS
     CPPFLAGS=
-    download "https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1.2.3.tar.gz" "libwebp-1.2.3.tar.gz"
+    download "https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1.2.2.tar.gz" "libwebp-1.2.2.tar.gz"
     execute ./configure --prefix="${WORKSPACE}" --disable-shared --enable-static --disable-dependency-tracking --disable-gl --with-zlib-include="${WORKSPACE}"/include/ --with-zlib-lib="${WORKSPACE}"/lib
     make_dir build
     cd build || exit
@@ -845,7 +844,7 @@ if [[ "$OSTYPE" != "darwin"* ]]; then
     execute make -j $MJOBS
     execute make install
 
-    build_done "libwebp" "1.2.3"
+    build_done "libwebp" "1.2.2"
   fi
   CONFIGURE_OPTIONS+=("--enable-libwebp")
 fi
@@ -859,7 +858,7 @@ if build "libsdl" "2.0.22"; then
   execute make -j $MJOBS
   execute make install
 
-  build_done "libsdl" "2.0.22<"
+  build_done "libsdl" "2.0.22"
 fi
 
 if $NONFREE_AND_GPL; then
@@ -915,12 +914,12 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
     fi
   fi
 
-  if build "amf" "1.4.24.0"; then
-    download "https://github.com/GPUOpen-LibrariesAndSDKs/AMF/archive/refs/tags/1.4.24.tar.gz" "AMF-1.4.24.tar.gz" "AMF-1.4.24"
+  if build "amf" "1.4.26.0"; then
+    download "https://github.com/GPUOpen-LibrariesAndSDKs/AMF/archive/refs/tags/v1.4.26.tar.gz" "AMF-1.4.26.tar.gz" "AMF-1.4.26"
     execute rm -rf "${WORKSPACE}/include/AMF"
     execute mkdir -p "${WORKSPACE}/include/AMF"
-    execute cp -r "${PACKAGES}"/AMF-1.4.24/AMF-1.4.24/amf/public/include/* "${WORKSPACE}/include/AMF/"
-    build_done "amf" "1.4.24.0"
+    execute cp -r "${PACKAGES}"/AMF-1.4.26/AMF-1.4.26/amf/public/include/* "${WORKSPACE}/include/AMF/"
+    build_done "amf" "1.4.26.0"
   fi
   CONFIGURE_OPTIONS+=("--enable-amf")
 fi
@@ -935,7 +934,9 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 fi
 
 build "ffmpeg" "$FFMPEG_VERSION"
-download "https://github.com/FFmpeg/FFmpeg/tarball/masterz" "FFmpeg-release-$FFMPEG_VERSION.tar.gz"
+download "https://github.com/FFmpeg/FFmpeg/tarball/master" "FFmpeg-release-$FFMPEG_VERSION.tar.gz"
+curl -L --silent -o "$PACKAGES/FFmpeg-release-$FFMPEG_VERSION/0001-avformat-webvttdec-Ignore-REGION-and-STYLE-chunks.patch" "https://raw.githubusercontent.com/yt-dlp/FFmpeg-Builds/a58d84388c52d1c048306783d5cf3582761941bc/patches/ffmpeg/master/0001-avformat-webvttdec-Ignore-REGION-and-STYLE-chunks.patch"
+patch -p1 <0001-avformat-webvttdec-Ignore-REGION-and-STYLE-chunks.patch
 # shellcheck disable=SC2086
 ./configure "${CONFIGURE_OPTIONS[@]}" \
   --disable-debug \
