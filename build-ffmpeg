@@ -673,13 +673,13 @@ CONFIGURE_OPTIONS+=("--enable-libzimg")
 
 if command_exists "python3"; then
 
-  if build "lv2" "1.18.6"; then
-    download "http://lv2plug.in/spec/lv2-1.18.6.tar.xz" "lv2-1.18.6.tar.xz"
+  if build "lv2" "1.18.4"; then
+    download "http://lv2plug.in/spec/lv2-1.18.4.tar.bz2" "lv2-1.18.4.tar.bz2"
     execute python3 ./waf configure --prefix="${WORKSPACE}" --lv2-user
     execute python3 ./waf
     execute python3 ./waf install
 
-    build_done "lv2" "1.18.6"
+    build_done "lv2" "1.18.4"
   fi
   if build "waflib" "aeef9f5f"; then
     download "https://gitlab.com/drobilla/autowaf/-/archive/aeef9f5fdf416d9b68c61c75de7dae409f1ac6a4/autowaf-aeef9f5fdf416d9b68c61c75de7dae409f1ac6a4.tar.gz" "autowaf.tar.gz"
