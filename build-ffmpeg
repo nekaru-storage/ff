@@ -427,12 +427,12 @@ else
   CONFIGURE_OPTIONS+=("--enable-gmp" "--enable-gnutls")
 fi
 
-if build "cmake" "3.23.3"; then
-  download "https://github.com/Kitware/CMake/releases/download/v3.23.3/cmake-3.23.3.tar.gz"
+if build "cmake" "3.24.0"; then
+  download "https://github.com/Kitware/CMake/releases/download/v3.24.0/cmake-3.24.0.tar.gz"
   execute ./configure --prefix="${WORKSPACE}" --parallel="${MJOBS}" -- -DCMAKE_USE_OPENSSL=OFF
   execute make -j $MJOBS
   execute make install
-  build_done "cmake" "3.23.3"
+  build_done "cmake" "3.24.0"
 fi
 
 ##
@@ -485,16 +485,16 @@ if command_exists "python3"; then
 fi
 
 if ! $MACOS_M1; then
-  if build "svtav1" "1.1.0"; then
+  if build "svtav1" "1.2.1"; then
     # Last known working commit which passed CI Tests from HEAD branch
-    download "https://github.com/AOMediaCodec/SVT-AV1/archive/refs/tags/v1.1.0.tar.gz" "svtav1-1.1.0.tar.gz"
-    cd "${PACKAGES}"/svtav1-1.1.0//Build/linux || exit
+    download "https://gitlab.com/AOMediaCodec/SVT-AV1/-/archive/v1.2.1/SVT-AV1-v1.2.1.tar.gz" "svtav1-1.2.1.tar.gz"
+    cd "${PACKAGES}"/svtav1-1.2.1//Build/linux || exit
     execute cmake -DCMAKE_INSTALL_PREFIX="${WORKSPACE}" -DENABLE_SHARED=off -DBUILD_SHARED_LIBS=OFF ../.. -G"Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
     execute make -j $MJOBS
     execute make install
     execute cp SvtAv1Enc.pc "${WORKSPACE}/lib/pkgconfig/"
     execute cp SvtAv1Dec.pc "${WORKSPACE}/lib/pkgconfig/"
-    build_done "svtav1" "1.1.0";
+    build_done "svtav1" "1.2.1";
   fi
   CONFIGURE_OPTIONS+=("--enable-libsvtav1")
 fi
@@ -530,11 +530,11 @@ if $NONFREE_AND_GPL; then
   CONFIGURE_OPTIONS+=("--enable-libx264")
 fi
 
-if build "openh264" "2.2.0"; then
-  download "https://github.com/cisco/openh264/archive/v2.2.0.tar.gz" "openh264-2.2.0.tar.gz"
+if build "openh264" "2.3.0"; then
+  download "https://github.com/cisco/openh264/archive/v2.3.0.tar.gz" "openh264-2.3.0.tar.gz"
   execute make -j $MJOBS PREFIX="${WORKSPACE}"
   execute make install-static PREFIX="${WORKSPACE}"
-  build_done "openh264" "2.2.0"
+  build_done "openh264" "2.3.0"
 fi
 CONFIGURE_OPTIONS+=("--enable-libopenh264")
 
@@ -732,13 +732,13 @@ if command_exists "python3"; then
 
 fi
 
-if build "opencore" "0.1.5"; then
-  download "https://sourceforge.net/projects/opencore-amr/files/opencore-amr/opencore-amr-0.1.5.tar.gz/download?use_mirror=gigenet" "opencore-amr-0.1.5.tar.gz"
+if build "opencore" "0.1.6"; then
+  download "https://sourceforge.net/projects/opencore-amr/files/opencore-amr/opencore-amr-0.1.6.tar.gz/download?use_mirror=gigenet" "opencore-amr-0.1.6.tar.gz"
   execute ./configure --prefix="${WORKSPACE}" --disable-shared --enable-static
   execute make -j $MJOBS
   execute make install
 
-  build_done "opencore" "0.1.5"
+  build_done "opencore" "0.1.6"
 fi
 CONFIGURE_OPTIONS+=("--enable-libopencore_amrnb" "--enable-libopencore_amrwb")
 
